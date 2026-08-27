@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Doctor's Note</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>My Doctor's Note</h1>
+    <button type="button" id="settings-btn" class="btn btn-icon" aria-label="Settings">⚙️</button>
+  </header>
+
+  <p id="status-banner" class="status-banner" hidden></p>
+
+  <main class="app-layout">
+    <aside class="thread-panel">
+      <button type="button" id="new-thread-btn" class="btn btn-primary btn-block">+ New thread</button>
+      <form id="new-thread-form" hidden>
+        <input type="text" id="new-thread-label" placeholder="e.g. GP follow-up, knee pain" maxlength="120">
+        <div class="form-row">
+          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="button" id="new-thread-cancel" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
+      <ul id="thread-list" class="thread-list"></ul>
+    </aside>
+
+    <section id="thread-detail" class="thread-detail"></section>
+  </main>
+
+  <dialog id="settings-dialog">
+    <form>
+      <h2>Settings</h2>
+      <label class="field-label" for="api-key-input">Anthropic API key</label>
+      <input type="password" id="api-key-input" placeholder="sk-ant-...">
+      <p class="hint">
+        Stored only in this browser's local storage, never sent anywhere but
+        directly to Anthropic's API when you generate a distilled note or
+        reconciliation. Anyone with access to this browser/device can read
+        it back out - don't use this on a shared or public computer.
+      </p>
+      <div class="form-row">
+        <button type="button" id="settings-save" class="btn btn-primary">Save</button>
+        <button type="button" id="settings-close" class="btn btn-secondary">Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
