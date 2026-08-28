@@ -5,6 +5,7 @@
 // "no backend, no account system" constraint. See README for details.
 
 const API_KEY_STORAGE_KEY = 'doctorsNote.anthropicApiKey';
+const WORKSPACE_ID_STORAGE_KEY = 'doctorsNote.anthropicWorkspaceId';
 const API_URL = 'https://api.anthropic.com/v1/messages';
 const MODEL = 'claude-opus-5';
 
@@ -20,11 +21,24 @@ export function setApiKey(key) {
   }
 }
 
+export function getWorkspaceId() {
+  return localStorage.getItem(WORKSPACE_ID_STORAGE_KEY) || '';
+}
+
+export function setWorkspaceId(id) {
+  if (id) {
+    localStorage.setItem(WORKSPACE_ID_STORAGE_KEY, id);
+  } else {
+    localStorage.removeItem(WORKSPACE_ID_STORAGE_KEY);
+  }
+}
+
 async function callClaude(userContent, schema) {
   const apiKey = getApiKey();
   if (!apiKey) {
     throw new Error('No Anthropic API key set. Add one in Settings first.');
   }
+  const workspaceId = getWorkspaceId();
 
   let res;
   try {
@@ -36,6 +50,9 @@ async function callClaude(userContent, schema) {
         'anthropic-version': '2023-06-01',
         // Required for calling the Messages API directly from a browser.
         'anthropic-dangerous-direct-browser-access': 'true',
+        // Only needed for a personal/service-account key not scoped to one
+        // workspace - see Settings.
+        ...(workspaceId ? { 'anthropic-workspace-id': workspaceId } : {}),
       },
       body: JSON.stringify({
         model: MODEL,

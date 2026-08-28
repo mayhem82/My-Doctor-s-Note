@@ -41,6 +41,15 @@
         reconciliation. Anyone with access to this browser/device can read
         it back out - don't use this on a shared or public computer.
       </p>
+
+      <label class="field-label" for="workspace-id-input">Workspace ID (only if needed)</label>
+      <input type="text" id="workspace-id-input" placeholder="wrkspc_...">
+      <p class="hint">
+        Only required if the app shows an error mentioning
+        "anthropic-workspace-id" - that means your API key isn't scoped to a
+        single workspace. Find the ID under Settings &rarr; Workspaces in the
+        Claude Console, and paste it here. Leave blank otherwise.
+      </p>
       <div class="form-row">
         <button type="button" id="settings-save" class="btn btn-primary">Save</button>
         <button type="button" id="settings-close" class="btn btn-secondary">Close</button>

@@ -390,17 +390,20 @@ function handleToggleMic() {
 function initSettings() {
   const dialog = document.getElementById('settings-dialog');
   const input = document.getElementById('api-key-input');
+  const workspaceInput = document.getElementById('workspace-id-input');
 
   document.getElementById('settings-btn').addEventListener('click', () => {
     input.value = api.getApiKey();
+    workspaceInput.value = api.getWorkspaceId();
     dialog.showModal();
   });
   document.getElementById('settings-close').addEventListener('click', () => dialog.close());
   document.getElementById('settings-save').addEventListener('click', (e) => {
     e.preventDefault();
     api.setApiKey(input.value.trim());
+    api.setWorkspaceId(workspaceInput.value.trim());
     dialog.close();
-    showStatus('API key saved.', 'success');
+    showStatus('Settings saved.', 'success');
   });
 }
 
